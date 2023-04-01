@@ -4,6 +4,9 @@ import cleanup from "./cleanup.js";
 import backup from "./backup.js";
 import {execSync} from "child_process";
 
+// set working dir to the root folder
+process.chdir(__dirname)
+
 const backupCommand = process.env.BACKUP_COMMAND;
 const destinationDir = process.env.DESTINATION_DIR || 'backups';
 
