@@ -10,8 +10,10 @@ const backup = (sourceDir, destinationDir, excludePaths, currentDate = new Date(
   // Build the destination path with the current date as the folder name
   const destinationPath = path.join(destinationDir, today);
 
+  excludePaths = excludePaths.map(p => '--exclude=\'' + p + '\'');
+
   // Construct rsync command with exclude options
-  let rsyncCommand = `rsync -a --exclude={${excludePaths.join(',')}} ${sourceDir} ${destinationPath}`;
+  let rsyncCommand = `rsync -a ${excludePaths.join(' ')} ${sourceDir} ${destinationPath}`;
 
   // Execute rsync command
   execSync(rsyncCommand, (error, stdout, stderr) => {
