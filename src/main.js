@@ -18,7 +18,7 @@ if (backupCommand) {
   backup(
     process.env.SOURCE_DIR,
     process.env.DESTINATION_DIR,
-    process.env.EXCLUDED.split(' '),
+    process.env.EXCLUDED?.split(' ') || [],
     new Date()
   );
 }
