@@ -5,6 +5,8 @@ import backup from "./backup.js";
 import {execSync} from "child_process";
 
 const backupCommand = process.env.BACKUP_COMMAND;
+const destinationDir = process.env.DESTINATION_DIR || 'backups';
+
 if (backupCommand) {
   execSync(backupCommand, (error, stdout, stderr) => {
     if (error) {
@@ -16,15 +18,15 @@ if (backupCommand) {
   });
 } else {
   backup(
-    process.env.SOURCE_DIR,
-    process.env.DESTINATION_DIR,
+    process.env.SOURCE_DIR || 'source/',
+    destinationDir,
     process.env.EXCLUDED?.split(' ') || [],
     new Date()
   );
 }
 
 cleanup(
-  process.env.DESTINATION_DIR,
-  process.env.INTERVALS.split(' '),
+  destinationDir,
+  process.env.INTERVALS.split(' ') || [],
   new Date()
 );
