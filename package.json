@@ -1,0 +1,8 @@
+{
+  "name": "backup-script",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "date-fns": "^2.29.3"
+  }
+}
