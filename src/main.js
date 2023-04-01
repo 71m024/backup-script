@@ -3,15 +3,14 @@ dotenv.config()
 import cleanup from "./cleanup.js";
 import backup from "./backup.js";
 import {execSync} from "child_process";
-
-// set working dir to the root folder
-process.chdir(__dirname)
+import path from 'path';
 
 const backupCommand = process.env.BACKUP_COMMAND;
 const destinationDir = process.env.DESTINATION_DIR || 'backups';
 
 if (backupCommand) {
-  execSync(backupCommand, (error, stdout, stderr) => {
+  console.log(path.resolve(backupCommand));
+  execSync(path.resolve(backupCommand), (error, stdout, stderr) => {
     if (error) {
       console.error(`Error occurred: ${error}`);
       process.exit(1);
@@ -28,6 +27,7 @@ if (backupCommand) {
   );
 }
 
+console.log('do the cleanup');
 cleanup(
   destinationDir,
   process.env.INTERVALS.split(' ') || [],
