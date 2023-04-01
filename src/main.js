@@ -7,6 +7,7 @@ import path from 'path';
 
 const backupCommand = process.env.BACKUP_COMMAND;
 const destinationDir = process.env.DESTINATION_DIR || 'backups';
+const sourceDir = process.env.SOURCE_DIR || 'source/';
 
 if (backupCommand) {
   console.log(path.resolve(backupCommand));
@@ -19,8 +20,9 @@ if (backupCommand) {
     console.log(`Stderr: ${stderr}`);
   });
 } else {
+  console.log(`copy ${sourceDir} to ${destinationDir}`)
   backup(
-    process.env.SOURCE_DIR || 'source/',
+    sourceDir,
     destinationDir,
     process.env.EXCLUDED?.split(' ') || [],
     new Date()
