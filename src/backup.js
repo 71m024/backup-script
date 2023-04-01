@@ -17,7 +17,7 @@ const backup = (sourceDir, destinationDir, excludePaths, currentDate = new Date(
   execSync(rsyncCommand, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error occurred: ${error}`);
-      return;
+      process.exit(1);
     }
     console.log(`Stdout: ${stdout}`);
     console.log(`Stderr: ${stderr}`);
