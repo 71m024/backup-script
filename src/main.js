@@ -1,27 +1,23 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
 import cleanup from "./cleanup.js";
-import backup from "./backup.js";
-import {execSync} from "child_process";
-import path from 'path';
+import copy from "./copy.js";
+import {exec} from "./util.js";
 
-const backupCommand = process.env.BACKUP_COMMAND;
+const preCopyCommand = process.env.PRE_COPY_COMMAND;
+const copyCommand = process.env.COPY_COMMAND;
 const destinationDir = process.env.DESTINATION_DIR || 'backups';
 const sourceDir = process.env.SOURCE_DIR || 'source/';
 
-if (backupCommand) {
-  console.log(path.resolve(backupCommand));
-  execSync(path.resolve(backupCommand), (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error occurred: ${error}`);
-      process.exit(1);
-    }
-    console.log(`Stdout: ${stdout}`);
-    console.log(`Stderr: ${stderr}`);
-  });
+if (preCopyCommand) {
+  exec(preCopyCommand, 'PRE_COPY_COMMAND');
+}
+
+if (copyCommand) {
+  exec(copyCommand);
 } else {
   console.log(`copy ${sourceDir} to ${destinationDir}`)
-  backup(
+  copy(
     sourceDir,
     destinationDir,
     process.env.EXCLUDED?.split(' ') || [],

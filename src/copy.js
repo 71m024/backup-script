@@ -1,8 +1,9 @@
 import path from 'path';
 import {format} from 'date-fns';
 import {execSync} from 'child_process'
+import {exec} from "./util.js";
 
-const backup = (sourceDir, destinationDir, excludePaths, currentDate = new Date()) => {
+const copy = (sourceDir, destinationDir, excludePaths, currentDate = new Date()) => {
 
   // Create a date string in the format 'yyyy-mm-dd'
   const today = format(currentDate, 'yyyy-MM-dd');
@@ -16,14 +17,7 @@ const backup = (sourceDir, destinationDir, excludePaths, currentDate = new Date(
   let rsyncCommand = `rsync -a ${excludePaths.join(' ')} ${sourceDir} ${destinationPath}`;
 
   // Execute rsync command
-  execSync(rsyncCommand, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error occurred: ${error}`);
-      process.exit(1);
-    }
-    console.log(`Stdout: ${stdout}`);
-    console.log(`Stderr: ${stderr}`);
-  });
+  exec(rsyncCommand);
 }
 
-export default backup;
+export default copy;
