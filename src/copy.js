@@ -17,7 +17,7 @@ const copy = (sourceDir, destinationDir, excludePaths, currentDate = new Date())
   let rsyncCommand = `rsync -a ${excludePaths.join(' ')} ${sourceDir} ${destinationPath}`;
 
   // Execute rsync command
-  exec(rsyncCommand);
+  exec(rsyncCommand, 'COPY_COMMAND');
 }
 
 export default copy;

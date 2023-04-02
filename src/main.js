@@ -16,7 +16,6 @@ if (preCopyCommand) {
 if (copyCommand) {
   exec(copyCommand);
 } else {
-  console.log(`copy ${sourceDir} to ${destinationDir}`)
   copy(
     sourceDir,
     destinationDir,
