@@ -5,6 +5,7 @@ import copy from "./copy.js";
 import {exec} from "./util.js";
 
 const preCopyCommand = process.env.PRE_COPY_COMMAND;
+const postCopyCommand = process.env.POST_COPY_COMMAND;
 const copyCommand = process.env.COPY_COMMAND;
 const destinationDir = process.env.DESTINATION_DIR || 'backups';
 const sourceDir = process.env.SOURCE_DIR || 'source/';
@@ -22,6 +23,10 @@ if (copyCommand) {
     process.env.EXCLUDED?.split(' ') || [],
     new Date()
   );
+}
+
+if (postCopyCommand) {
+  exec(postCopyCommand, 'POST_COPY_COMMAND');
 }
 
 console.log('do the cleanup');
